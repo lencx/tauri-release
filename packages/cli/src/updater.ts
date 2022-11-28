@@ -1,6 +1,8 @@
 import fs from 'fs';
+import path from 'path';
 import fetch from 'node-fetch';
 import { getOctokit, context } from '@actions/github';
+import c from 'kleur';
 
 import { $argv } from './utils';
 import type { Platform, UpdaterJSON } from './types';
@@ -9,13 +11,38 @@ import updatelog from './updatelog';
 
 export default async function updater() {
   const argv = $argv();
+  let owner, repo;
 
-  if (!argv.token) {
-    console.log('GITHUB_TOKEN is required');
-    process.exit(1);
+  try {
+    owner = context?.repo?.owner;
+    repo = context?.repo?.repo;
+  } catch(_) {
+    if (argv.owner) {
+      owner = argv.owner;
+    }
+    if (argv.repo) {
+      repo = argv.repo;
+    }
   }
 
-  const options = { owner: context.repo.owner, repo: context.repo.repo };
+  if (!owner || !owner || !argv.token) {
+    console.log(c.red('[💢 updater]'), '`owner`, `repo`, `token` are required.');
+    process.exit(0);
+  }
+
+  let filename = 'install.json';
+  if (argv.output) {
+    if (!fs.existsSync(path.dirname(argv.output))) {
+      fs.mkdirSync(path.dirname(argv.output), { recursive: true });
+    }
+    filename = argv.output;
+    if (!/.json$/.test(filename)) {
+      console.log(c.red('[💢 updater]'), c.yellow(filename), `The output file format must be json`);
+      process.exit(0);
+    }
+  }
+
+  const options = { owner, repo };
   const github = getOctokit(argv.token);
 
   const { data: tags } = await github.rest.repos.listTags({
@@ -34,9 +61,11 @@ export default async function updater() {
     tag: tag.name,
   });
 
+  const { content } = updatelog(tag.name);
+
   const updateData: UpdaterJSON = {
     version: tag.name,
-    notes: updatelog(tag.name), // use UPDATE_LOG.md
+    notes: content, // use UPDATE_LOG.md
     pub_date: new Date().toISOString(),
     platforms: {
       win64: { signature: '', url: '' }, // compatible with older formats
@@ -84,14 +113,8 @@ export default async function updater() {
   });
   await Promise.allSettled(promises);
 
-  if (!fs.existsSync('updater')) {
-    fs.mkdirSync('updater');
-  }
-  fs.writeFileSync(
-    './updater/install.json',
-    JSON.stringify(updateData, null, 2)
-  );
-  console.log('Generate updater/install.json');
+  fs.writeFileSync(filename, JSON.stringify(updateData, null, 2));
+  console.log(c.green('[✨ updater]'), c.green(filename));
 }
 
 // get the signature file content

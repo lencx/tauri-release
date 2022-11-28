@@ -7,11 +7,17 @@ export type Platform = 'win64'
   | 'windows-x86_64';
 
 export type UpdaterJSON = {
-  version: string,
-  notes: string,
-  pub_date: string,
+  version: string;
+  notes: string;
+  pub_date: string;
   platforms: Record<Platform, {
     signature: string;
     url: string;
   }>;
+}
+
+
+export type UpdaterLog = {
+  filename: string;
+  content: string;
 }

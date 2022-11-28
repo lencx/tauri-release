@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "dev": "pnpm -r run dev",
+    "build": "pnpm -r run build",
     "clean": "pnpm -r run clean"
   },
   "devDependencies": {
