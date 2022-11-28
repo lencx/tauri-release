@@ -1,2 +1,3 @@
-# tauri-release-script
-tauri release script
+# tauri-release
+
+> 🔗 tauri release toolchain
