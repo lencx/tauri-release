@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "name": "@tauri-release/monorepo",
   "repository": "git@github.com:lencx/tauri-release.git",
   "author": "lencx <cxin1314@gmail.com>",
   "license": "MIT",
