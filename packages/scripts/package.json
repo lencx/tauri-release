@@ -1,0 +1,21 @@
+{
+  "name": "@tauri-release/scripts",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "git@github.com:lencx/tauri-release.git",
+  "author": "lencx <cxin1314@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=v14.16.0"
+  },
+  "scripts": {
+    "release": "esno ./src/release"
+  },
+  "dependencies": {
+    "@actions/github": "^5.1.1",
+    "node-fetch": "^3.3.0"
+  },
+  "devDependencies": {
+    "esno": "^0.16.3"
+  }
+}
