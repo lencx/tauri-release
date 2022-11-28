@@ -8,6 +8,10 @@
     "build": "pnpm -r run build",
     "clean": "pnpm -r run clean"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "@types/node": "^18.11.9",
     "esno": "^0.16.3",
