@@ -1,8 +1,12 @@
 import path from 'path';
 import { createRequire } from 'module';
+import minimist from 'minimist';
 
 export const require = createRequire(import.meta.url);
 
+export const $argv = () => minimist(process.argv.slice(2));
+
+// file
 export const ROOT_PATH = process.cwd();
 export const README_PATH = path.join(ROOT_PATH, "README.md");
 export const PACKAGE_PATH = path.join(ROOT_PATH, "package.json");
@@ -13,3 +17,4 @@ export const readme = () => require(README_PATH);
 export const updateLog = () => require(UPDATE_LOG_PATH);
 export const packageJSON = (): Record<string, any> => require(PACKAGE_PATH);
 export const tauriConfJSON = () => require(TAURI_CONF_PATH);
+export const pkgJson = () => require(path.join('..', 'package.json'));

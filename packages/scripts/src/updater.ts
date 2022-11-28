@@ -2,20 +2,21 @@ import fs from 'fs';
 import fetch from 'node-fetch';
 import { getOctokit, context } from '@actions/github';
 
+import { $argv } from './utils';
 import type { Platform, UpdaterJSON } from './types';
 
 import updatelog from './updatelog';
 
-const token = process.env.GITHUB_TOKEN;
+export default async function updater() {
+  const argv = $argv();
 
-async function updater() {
-  if (!token) {
+  if (!argv.token) {
     console.log('GITHUB_TOKEN is required');
     process.exit(1);
   }
 
   const options = { owner: context.repo.owner, repo: context.repo.repo };
-  const github = getOctokit(token);
+  const github = getOctokit(argv.token);
 
   const { data: tags } = await github.rest.repos.listTags({
     ...options,
@@ -92,9 +93,6 @@ async function updater() {
   );
   console.log('Generate updater/install.json');
 }
-
-updater()
-  .catch(console.error);
 
 // get the signature file content
 async function getSignature(url: string): Promise<any> {
