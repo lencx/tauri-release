@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 import { getOctokit, context } from '@actions/github';
 import c from 'kleur';
 
-import { $argv } from './utils';
+import { $argv, relativePath, ROOT_PATH, UPDATER_JSON_PATH } from './utils';
 import type { Platform, UpdaterJSON } from './types';
 
 import updatelog from './updatelog';
@@ -30,16 +30,16 @@ export default async function updater() {
     process.exit(0);
   }
 
-  let filename = 'install.json';
+  let filename = UPDATER_JSON_PATH;
   if (argv.output) {
-    if (!fs.existsSync(path.dirname(argv.output))) {
-      fs.mkdirSync(path.dirname(argv.output), { recursive: true });
-    }
-    filename = argv.output;
+    filename = path.join(ROOT_PATH, argv.output);
     if (!/.json$/.test(filename)) {
       console.log(c.red('[💢 updater]'), c.yellow(filename), `The output file format must be json`);
       process.exit(0);
     }
+  }
+  if (!fs.existsSync(path.dirname(filename))) {
+    fs.mkdirSync(path.dirname(filename), { recursive: true });
   }
 
   const options = { owner, repo };
@@ -114,7 +114,13 @@ export default async function updater() {
   await Promise.allSettled(promises);
 
   fs.writeFileSync(filename, JSON.stringify(updateData, null, 2));
-  console.log(c.green('[✨ updater]'), c.green(filename));
+  console.log(c.green('[✨ updater]'), c.green(relativePath(filename)), '\n');
+  console.log(c.yellow('*'.repeat(20)));
+  console.log(c.yellow('*'), c.blue('Edit `.github/workflows/release.yml > peaceiris/actions-gh-pages > publish_dir'));
+  console.log(c.yellow('*'), c.gray('value:'), c.green(relativePath(path.dirname(filename))));
+  console.log(c.yellow('*'), c.blue('Edit `tauri.conf.json > tauri > updater > endpoints`'));
+  console.log(c.yellow('*'), c.gray('value:'), c.green(`https://${owner}.github.io/${repo}/${path.basename(filename)}`));
+  console.log(c.yellow('*'.repeat(20)));
 }
 
 // get the signature file content

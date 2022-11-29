@@ -1,5 +1,7 @@
 # @tauri-release/cli
 
+*Note: `@tauri-release/cli` needs to be used with [Tauri GitHub Action](https://github.com/tauri-apps/tauri-action).*
+
 ## Install
 
 ```bash
@@ -68,18 +70,44 @@ Customize the `update-log` file path, the default name is `UPDATE_LOG.md`.
 ```bash
 tr release --git
 
+# custom file
 tr release --git --logfile="src/update_log.md"
+```
+
+### new
+
+#### log
+
+Generate tauri update-log file, the default name is `UPDATE_LOG.md`.
+
+```bash
+tr new log
+
+# custom file
+tr new --logfile="src/update_log.md"
+```
+
+#### action
+
+Generate github action file, the default name is `.github/workflows/release.yml`.
+
+```bash
+tr new action
+
+# custom file
+tr new action --actionfile=".github/workflows/tauri-release.yml"
 ```
 
 ### updater
 
-Generate tauri update file. [[Tauri doc] Update File JSON Format](https://tauri.app/v1/guides/distribution/updater/#update-file-json-format)
+Generate tauri update file, the default name is `updater/install.json`. [[Tauri doc] Update File JSON Format](https://tauri.app/v1/guides/distribution/updater/#update-file-json-format).
 
 ```bash
-tr updater
+tr updater --owner=GITHUB_OWNER --repo=GITHUB_REPO --token=GITHUB_TOKEN
 
+# custom file
 # The notes field value in the json file needs to be obtained from the update_log file
-tr updater --logfile="src/update_log.md"
+tr updater --owner=GITHUB_OWNER --repo=GITHUB_REPO --token=GITHUB_TOKEN --logfile="src/update_log.md"
 ```
 
 ### override

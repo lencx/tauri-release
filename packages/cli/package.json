@@ -1,7 +1,7 @@
 {
   "name": "@tauri-release/cli",
-  "version": "0.1.0",
-  "main": "dist/index.js",
+  "version": "0.1.1",
+  "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "author": "lencx <cxin1314@gmail.com>",
@@ -15,8 +15,8 @@
     "node": ">=v14.16.0"
   },
   "bin": {
-    "tauir-release": "./dist/index.mjs",
-    "tr": "./dist/index.mjs"
+    "tauir-release": "bin/index.mjs",
+    "tr": "bin/index.mjs"
   },
   "exports": {
     ".": {
