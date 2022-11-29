@@ -135,3 +135,49 @@ Customize the `tauri.conf.json` path, the default is `src-tauri/tauri.conf.json`
 ```bash
 tr override --name="hello-tauri" --version="../package.json" --tauriconf="src/path/tauri.conf.json"
 ```
+
+### Examples
+
+[lencx/WA/package.json](https://github.com/lencx/WA/blob/main/package.json)
+
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "tr": "tr",
+    "updater": "tr updater",
+    "release": "tr release --git",
+    "fix:linux": "tr override --name=WA"
+  },
+}
+```
+
+[lencx/WA/.github/workflows/release.yml](https://github.com/lencx/WA/blob/main/.github/workflows/release.yml)
+
+```yml
+# ...
+      - name: fix linux build
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          yarn fix:linux
+
+# ...
+  updater:
+    runs-on: ubuntu-latest
+    needs: [create-release, build-tauri]
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn
+      - run: yarn updater --token=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy install.json
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./updater
+          force_orphan: true
+```
