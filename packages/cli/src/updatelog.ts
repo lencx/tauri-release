@@ -51,7 +51,7 @@ export default function updatelog(tag: string): UpdaterLog {
   }
 
   return {
-    filename: `.${relativePath(filePath)}`,
+    filename: relativePath(filePath),
     content: tagMap[tag].join('\n').trim() || '',
   };
 }
