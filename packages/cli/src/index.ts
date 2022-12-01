@@ -21,18 +21,17 @@ function init() {
     return;
   }
 
-  // const
   try {
     switch (subcmd) {
       case 'release':
         // semver: major | minor | patch, default: patch
-        // usage: tr release --[semver]
+        // usage: tr release [--semver] [--git]
         release(); break;
       case 'updater':
-        // usage: tr updater --git
+        // usage: tr updater
         updater(); break;
       case 'override':
-        // usage: tr override --name="tauri-app" --version="../package.json"
+        // usage: tr override [--jsonfile="src-tauri/tauri.conf.json"] --name="tauri-app" --version="../package.json"
         override(); break;
         // usage: tr new [log|action]
       case 'new':

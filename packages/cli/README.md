@@ -128,12 +128,30 @@ tr override --name=TauriApp
 tr override --version="../package.json"
 ```
 
-#### --tauriconf
+#### --json.a_b_c
 
-Customize the `tauri.conf.json` path, the default is `src-tauri/tauri.conf.json`
+Any field in any json file can be overwritten, the field cannot contain `_`.
+
+- key: `a_b_c -> a.b.c`
+- value: `number | null | boolean | string`
 
 ```bash
-tr override --name="hello-tauri" --version="../package.json" --tauriconf="src/path/tauri.conf.json"
+# package_productName -> package.productName
+# tauri_allowlist_all -> tauri.allowlist.all
+tr override --json.package_productName="WA" --json.tauri_allowlist_all=true
+```
+
+##### --jsonfile
+
+Customize the `tauri.conf.json` path, the default is `src-tauri/tauri.conf.json` ([tauri.conf.json](https://tauri.app/v1/api/config/)).
+
+```bash
+tr override --name="hello-tauri" --version="../package.json" --jsonfile="src/path/tauri.conf.json"
+
+# any field in any json file
+# a_b_c -> a.b.c
+# b_c -> b.c
+tr override --json.a_b_c=true --json.b_c=20 --jsonfile="test.json"
 ```
 
 ### Examples

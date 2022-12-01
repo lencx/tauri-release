@@ -28,7 +28,8 @@ jobs:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: '\${{ steps.get_version.outputs.VERSION }}'
-          release_name: 'WA+ \${{ steps.get_version.outputs.VERSION }}'
+          # 📝: Edit Name
+          release_name: 'App \${{ steps.get_version.outputs.VERSION }}'
           body: 'See the assets to download this version and install.'
 
   build-tauri:
@@ -94,7 +95,7 @@ jobs:
       - uses: tauri-apps/tauri-action@v0.3
         env:
           GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          # 📝: https://tauri.app/v1/guides/distribution/updater#signing-updates
+          # 📝: signer https://tauri.app/v1/guides/distribution/updater#signing-updates
           TAURI_PRIVATE_KEY: \${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_KEY_PASSWORD: \${{ secrets.TAURI_KEY_PASSWORD }}
         with:

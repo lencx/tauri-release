@@ -1,6 +1,6 @@
 {
   "name": "@tauri-release/cli",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -53,9 +53,11 @@
   },
   "dependencies": {
     "@actions/github": "^5.1.1",
+    "lodash": "^4.17.21",
     "node-fetch": "^3.3.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.191",
     "@types/minimist": "^1.2.2",
     "fast-glob": "^3.2.12",
     "kleur": "^4.1.5",

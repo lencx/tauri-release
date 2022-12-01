@@ -5,15 +5,19 @@ importers:
   .:
     specifiers:
       '@actions/github': ^5.1.1
+      '@types/lodash': ^4.14.191
       '@types/minimist': ^1.2.2
       fast-glob: ^3.2.12
       kleur: ^4.1.5
+      lodash: ^4.17.21
       minimist: ^1.2.7
       node-fetch: ^3.3.0
     dependencies:
       '@actions/github': 5.1.1
+      lodash: 4.17.21
       node-fetch: 3.3.0
     devDependencies:
+      '@types/lodash': 4.14.191
       '@types/minimist': 1.2.2
       fast-glob: 3.2.12
       kleur: 4.1.5
@@ -150,6 +154,10 @@ packages:
       '@octokit/openapi-types': 12.11.0
     dev: false
 
+  /@types/lodash/4.14.191:
+    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
+    dev: true
+
   /@types/minimist/1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: true
@@ -246,6 +254,10 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
     dev: true
+
+  /lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
 
   /merge2/1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
