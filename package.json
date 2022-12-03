@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "pnpm -r run dev",
+    "wa": "pnpm -r --filter=wa",
     "build": "pnpm -r run build",
     "clean": "pnpm -r run clean"
   },
