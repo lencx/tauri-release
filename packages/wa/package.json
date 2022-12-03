@@ -1,6 +1,6 @@
 {
-  "name": "@tauri-release/cli",
-  "version": "0.2.0",
+  "name": "@tauri-release/wa",
+  "version": "0.1.0",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -39,27 +39,22 @@
   "homepage": "https://github.com/lencx/tauri-release/tree/main#readme",
   "keywords": [
     "cli",
+    "wa",
+    "app",
+    "url",
+    "webapp",
+    "desktop",
     "tauri",
-    "release",
-    "updater",
-    "override",
-    "action",
-    "tauri-action",
-    "github-action"
+    "macos",
+    "windows",
+    "linux"
   ],
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@actions/github": "^5.1.1",
-    "lodash": "^4.17.21",
-    "node-fetch": "^3.3.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.191",
-    "@types/minimist": "^1.2.2",
-    "kleur": "^4.1.5",
-    "minimist": "^1.2.7"
   }
 }
