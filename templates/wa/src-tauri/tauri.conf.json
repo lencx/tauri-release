@@ -7,11 +7,15 @@
   },
   "package": {
     "productName": "WA",
-    "version": "../package.json"
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
       "all": true
+    },
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": false
     },
     "bundle": {
       "active": true,
@@ -28,8 +32,8 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.lencx.wa",
-      "longDescription": "",
+      "identifier": "com.lencx.wa.xx",
+      "longDescription": "Web APP",
       "macOS": {
         "entitlements": null,
         "exceptionDomain": "",
@@ -37,7 +41,7 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "shortDescription": "",
+      "shortDescription": "WA",
       "targets": "all",
       "windows": {
         "certificateThumbprint": null,

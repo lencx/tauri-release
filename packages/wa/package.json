@@ -53,8 +53,8 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "dependencies": {
-  },
   "devDependencies": {
+    "dgh": "^0.2.2",
+    "rgd": "^2.1.0"
   }
 }

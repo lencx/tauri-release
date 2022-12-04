@@ -1,10 +1,10 @@
 [package]
 name = "wa"
 version = "0.0.0"
+authors = ["lencx"]
 description = "💖 WA = Web APP"
-authors = ["you"]
-license = ""
-repository = ""
+repository = "https://github.com/lencx/tauri-release"
+license = "MIT"
 edition = "2021"
 rust-version = "1.57"
 
@@ -16,7 +16,9 @@ tauri-build = {version = "1.2", features = [] }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = {version = "1.2", features = ["api-all"] }
+tauri = {version = "1.2", features = ["api-all", "system-tray"] }
+anyhow = "1.0.66"
+regex = "1.7.0"
 
 [features]
 # by default Tauri runs in production mode
