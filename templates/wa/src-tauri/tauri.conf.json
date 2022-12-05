@@ -2,7 +2,7 @@
   "build": {
     "beforeDevCommand": "",
     "beforeBuildCommand": "",
-    "devPath": "https://github.com/lencx/tauri-release",
+    "devPath": "https://www.bilibili.com",
     "distDir": "../dist"
   },
   "package": {
@@ -32,7 +32,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.lencx.wa.xx",
+      "identifier": "com.lencx.wa",
       "longDescription": "Web APP",
       "macOS": {
         "entitlements": null,

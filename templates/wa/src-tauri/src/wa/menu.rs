@@ -5,14 +5,18 @@ use tauri::{
 
 use crate::utils;
 
+// --- Menu
 pub fn init(context: &Context<EmbeddedAssets>) -> Menu {
     let name = &context.package_info().name;
     let app_menu = Submenu::new(
         name,
         Menu::new()
             .add_native_item(MenuItem::About(name.into(), AboutMetadata::default()))
-            .add_item(CustomMenuItem::new("inject_script".to_string(), "Inject Script"))
             .add_native_item(MenuItem::Separator)
+            .add_item(
+                CustomMenuItem::new("inject_script".to_string(), "Inject Script")
+                    .accelerator("CmdOrCtrl+J"),
+            )
             .add_native_item(MenuItem::Separator)
             .add_native_item(MenuItem::Hide)
             .add_native_item(MenuItem::HideOthers)
@@ -20,17 +24,6 @@ pub fn init(context: &Context<EmbeddedAssets>) -> Menu {
             .add_native_item(MenuItem::Separator)
             .add_native_item(MenuItem::Quit),
     );
-
-    // let setting_menu = Submenu::new(
-    //     "Setting",
-    //     Menu::new()
-    //         .add_submenu(Submenu::new(
-    //             "Mode",
-    //             Menu::new()
-    //                 .add_item(CustomMenuItem::new("phone".to_string(), "Phone"))
-    //                 .add_item(CustomMenuItem::new("pc".to_string(), "PC"))
-    //         ))
-    // );
 
     let edit_menu = Submenu::new(
         "Edit",
@@ -81,15 +74,16 @@ pub fn init(context: &Context<EmbeddedAssets>) -> Menu {
 
     Menu::new()
         .add_submenu(app_menu)
-        // .add_submenu(setting_menu)
         .add_submenu(edit_menu)
         .add_submenu(view_menu)
         .add_submenu(help_menu)
 }
 
+// --- Menu Event
 pub fn menu_handler(event: WindowMenuEvent<tauri::Wry>) {
     let win = Some(event.window()).unwrap();
     let app = win.app_handle();
+
     match event.menu_item_id() {
         // App
         "inject_script" => {
@@ -116,6 +110,7 @@ pub fn menu_handler(event: WindowMenuEvent<tauri::Wry>) {
         "reload" => {
             win.emit("WA_EVENT", "RELOAD").unwrap();
         }
+        // Help
         "report_bug" => {
             tauri::api::shell::open(
                 &app.shell_scope(),

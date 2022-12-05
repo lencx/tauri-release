@@ -1,10 +1,9 @@
 {
-  "width": 360,
-  "height": 640,
   "resizable": true,
   "theme": "Light",
-  "mode": "Phone",
+  "mode": "PC",
   "title": "WA",
   "hidden_title": true,
-  "always_on_top": false
+  "always_on_top": false,
+  "title_bar_overlay": false
 }

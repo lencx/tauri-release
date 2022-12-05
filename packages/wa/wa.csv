@@ -1,0 +1,9 @@
+ID,Name,URL,Mode,Always-On-Top
+chatgpt,ChatGPT,https://chat.openai.com,Phone,true
+google-translate,Google Translate,https://translate.google.com,Phone,true
+twitter,Twitter,https://twitter.com,PC,false
+youtube,YouTube,https://www.youtube.com,PC,false
+bilibili,哔哩哔哩,https://www.bilibili.com,PC,false
+zhihu,知乎,https://www.zhihu.com,PC,false
+woap,公众号,https://mp.weixin.qq.com,PC,false
+iconfont,iconfont,https://www.iconfont.cn,PC,false
