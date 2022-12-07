@@ -10,20 +10,21 @@ use tauri::SystemTray;
 use wa::{cmd, menu, setup};
 
 fn main() {
-    let content = tauri::generate_context!();
+    let context = tauri::generate_context!();
 
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             cmd::hello,
             cmd::drag_window,
             cmd::fullscreen,
-            cmd::get_conf,
+            cmd::get_wa_conf,
+            cmd::get_tauri_conf,
         ])
         .setup(setup::init)
-        .menu(menu::init(&content))
+        .menu(menu::init(&context))
+        .system_tray(SystemTray::new())
         .on_menu_event(menu::menu_handler)
-        .system_tray(SystemTray::default())
         .on_system_tray_event(menu::tray_handler)
-        .run(content)
+        .run(context)
         .expect("error while running WA application");
 }

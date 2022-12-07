@@ -2,12 +2,12 @@
   "build": {
     "beforeDevCommand": "",
     "beforeBuildCommand": "",
-    "devPath": "https://www.bilibili.com",
+    "devPath": "../dist",
     "distDir": "../dist"
   },
   "package": {
     "productName": "WA",
-    "version": "0.1.0"
+    "version": "../package.json"
   },
   "tauri": {
     "allowlist": {
@@ -19,7 +19,7 @@
     },
     "bundle": {
       "active": true,
-      "category": "DeveloperTool",
+      "category": "WA",
       "copyright": "",
       "deb": {
         "depends": []

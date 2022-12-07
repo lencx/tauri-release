@@ -30,6 +30,11 @@ pub struct WaPayload {
 }
 
 #[tauri::command]
-pub fn get_conf() -> serde_json::Value {
-    serde_json::json!(utils::get_wa_conf().unwrap_or_else(utils::wa_json_default))
+pub fn get_wa_conf() -> serde_json::Value {
+    serde_json::json!(utils::get_wa_conf())
+}
+
+#[tauri::command]
+pub fn get_tauri_conf() -> serde_json::Value {
+    serde_json::json!(utils::get_tauri_conf().unwrap())
 }

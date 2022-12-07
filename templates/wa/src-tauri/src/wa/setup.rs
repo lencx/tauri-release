@@ -3,12 +3,8 @@ use tauri::{utils::config::WindowUrl, window::WindowBuilder, App, Theme, TitleBa
 use crate::utils;
 
 pub fn init(app: &mut App) -> std::result::Result<(), Box<dyn std::error::Error>> {
-    let conf = utils::get_tauri_conf().unwrap();
-    let wa_conf = utils::get_wa_conf().unwrap_or_else(utils::wa_json_default);
-
-    let url = conf.build.dev_path.to_string();
-    let script = utils::user_script();
-
+    let wa_conf = utils::get_wa_conf();
+    let url = wa_conf.url.to_string();
     let mut theme = Some(Theme::Light);
     let mut title_bar_style = TitleBarStyle::Overlay;
 
@@ -16,7 +12,7 @@ pub fn init(app: &mut App) -> std::result::Result<(), Box<dyn std::error::Error>
         theme = Some(Theme::Dark);
     }
 
-    if !wa_conf.title_bar_overlay {
+    if !wa_conf.hide_title_bar {
         title_bar_style = TitleBarStyle::Visible;
     }
 
@@ -24,7 +20,8 @@ pub fn init(app: &mut App) -> std::result::Result<(), Box<dyn std::error::Error>
         WindowBuilder::new(app, "core", WindowUrl::App(url.into()))
             .resizable(true)
             .fullscreen(false)
-            .initialization_script(&script)
+            .initialization_script(include_str!("../wa.js"))
+            .initialization_script(&utils::user_script())
             .title_bar_style(title_bar_style)
             .title(wa_conf.title)
             .hidden_title(wa_conf.hidden_title)
@@ -38,7 +35,8 @@ pub fn init(app: &mut App) -> std::result::Result<(), Box<dyn std::error::Error>
         WindowBuilder::new(app, "core", WindowUrl::App(url.into()))
             .resizable(true)
             .fullscreen(false)
-            .initialization_script(&script)
+            .initialization_script(include_str!("../wa.js"))
+            .initialization_script(&utils::user_script())
             .title_bar_style(title_bar_style)
             .hidden_title(wa_conf.hidden_title)
             .theme(theme)

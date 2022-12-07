@@ -11,34 +11,37 @@ pub fn get_tauri_conf() -> Option<Config> {
     Some(config)
 }
 
-pub fn get_wa_conf() -> Option<WaJson> {
+pub fn get_wa_conf() -> WaJson {
     let config_file = include_str!("../wa.json");
     let config: serde_json::Value =
         serde_json::from_str(config_file).expect("failed to parse wa.json");
-    let wajson: WaJson = serde_json::from_value(config).unwrap();
-    Some(wajson)
+    let wajson: WaJson = serde_json::from_value(config).unwrap_or_else(|_| wa_json_default());
+
+    wajson
 }
 
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 pub struct WaJson {
+    pub url: String,
     pub resizable: bool,
     pub theme: tauri::Theme,
     pub mode: String,
     pub title: String,
-    pub hidden_title: bool,
     pub always_on_top: bool,
-    pub title_bar_overlay: bool,
+    pub hidden_title: bool,
+    pub hide_title_bar: bool,
 }
 
 pub fn wa_json_default() -> WaJson {
     serde_json::from_value(serde_json::json!({
-        "resizable": false,
+        "url": "https://github.com/lencx/tauri-release",
+        "resizable": true,
         "theme": "Light",
         "mode": "PC",
         "title": "WA",
-        "hidden_title": true,
         "always_on_top": false,
-        "title_bar_overlay": true,
+        "hidden_title": true,
+        "hide_title_bar": true,
     }))
     .unwrap()
 }
@@ -73,10 +76,9 @@ pub fn script_path() -> PathBuf {
 }
 
 pub fn user_script() -> String {
-    let wa_script = include_str!("wa.js");
     let user_script_content = fs::read_to_string(script_path()).unwrap_or_else(|_| "".to_string());
     format!(
-        "window.addEventListener('DOMContentLoaded', function() {{\n{}\n{}\n}})",
-        wa_script, user_script_content
+        "window.addEventListener('DOMContentLoaded', function() {{\n{}\n}})",
+        user_script_content
     )
 }

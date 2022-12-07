@@ -96,19 +96,33 @@ pub fn menu_handler(event: WindowMenuEvent<tauri::Wry>) {
         }
         // View
         "go_back" => {
-            win.emit("WA_EVENT", "GO_BACK").unwrap();
+            win.eval("window.history.go(-1)").unwrap();
         }
         "go_forward" => {
-            win.emit("WA_EVENT", "GO_FORWARD").unwrap();
+            win.eval("window.history.go(1)").unwrap();
         }
         "scroll_top" => {
-            win.emit("WA_EVENT", "SCROLL_TOP").unwrap();
+            win.eval(
+                r#"window.scroll({
+                top: 0,
+                left: 0,
+                behavior: "smooth"
+            })"#,
+            )
+            .unwrap();
         }
         "scroll_bottom" => {
-            win.emit("WA_EVENT", "SCROLL_BOTTOM").unwrap();
+            win.eval(
+                r#"window.scroll({
+                top: document.body.scrollHeight,
+                left: 0,
+                behavior: "smooth",
+            })"#,
+            )
+            .unwrap();
         }
         "reload" => {
-            win.emit("WA_EVENT", "RELOAD").unwrap();
+            win.eval("window.location.reload()").unwrap();
         }
         // Help
         "report_bug" => {

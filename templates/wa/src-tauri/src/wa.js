@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const waConf = await wa_invoke("get_wa_conf");
   if (waConf.hide_title_bar) {
     const topStyleDom = document.createElement("style");
-    topStyleDom.innerHTML = `#wa-window-top {position:fixed;top:0;z-index:999999999;width:100%;height:24px;background:transparent;cursor:grab;cursor:-webkit-grab;user-select:none;-webkit-user-select:none;}#wa-window-top:active {cursor:grabbing;cursor:-webkit-grabbing;}`;
+    topStyleDom.innerHTML = `#wa-window-top{position:fixed;top:0;z-index:999999999;width:100%;height:24px;background:transparent;cursor:grab;cursor:-webkit-grab;user-select:none;-webkit-user-select:none;}#wa-window-top:active {cursor:grabbing;cursor:-webkit-grabbing;}`;
     document.head.appendChild(topStyleDom);
     const topDom = document.createElement("div");
     topDom.id = "wa-window-top";
@@ -57,54 +57,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  // wa_invoke("tauri", {
-  //   __tauriModule: "Event",
-  //   message: {
-  //     cmd: "listen",
-  //     event: "WA_EVENT",
-  //     windowLabel: "core",
-  //     handler: transformCallback(function (e) {
-  //       switch (e.payload) {
-  //         case "RELOAD":
-  //         case "SETTING_RELOAD": {
-  //           window.location.reload();
-  //           break;
-  //         }
-  //         case "GO_BACK": {
-  //           window.history.go(-1);
-  //           break;
-  //         }
-  //         case "GO_FORWARD": {
-  //           window.history.go(1);
-  //           break;
-  //         }
-  //         case "SCROLL_TOP": {
-  //           window.scroll({ top: 0, left: 0, behavior: "smooth" });
-  //           break;
-  //         }
-  //         case "SCROLL_BOTTOM": {
-  //           window.scroll({
-  //             top: document.body.scrollHeight,
-  //             left: 0,
-  //             behavior: "smooth",
-  //           });
-  //           break;
-  //         }
-  //         default:
-  //           break;
-  //       }
-  //     }),
-  //   },
-  // }).then((eventId) => {
-  //   return async function () {
-  //     return wa_invoke("tauri", {
-  //       __tauriModule: "Event",
-  //       message: {
-  //         cmd: "unlisten",
-  //         event: "WA_EVENT",
-  //         eventId,
-  //       },
-  //     });
-  //   };
-  // });
+  const THRESHOLD = 50;
+  document.addEventListener('wheel', function(event) {
+    const deltaX = event.wheelDeltaX;
+    if (Math.abs(deltaX) >= THRESHOLD) {
+      if (deltaX > 0) {
+        window.history.go(-1);
+      } else {
+        window.history.go(1);
+      }
+    }
+  });
 })
