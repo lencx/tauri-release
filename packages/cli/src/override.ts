@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import c from 'kleur';
-import set from 'lodash/set';
+import _ from 'lodash';
 
 import { $argv, relativePath, ROOT_PATH, TAURI_CONF_PATH } from './utils';
 
@@ -53,7 +53,7 @@ export default async function override() {
         default: break;
       }
 
-      set(confJson, key2, val2);
+      _.set(confJson, key2, val2);
     })
   }
 
