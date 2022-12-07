@@ -117,15 +117,15 @@ Override [productName or version](https://tauri.app/v1/api/config/#packageconfig
 #### --name
 
 ```bash
-# package.productName
+# tauri.conf.json > package.productName
 tr override --name=TauriApp
 ```
 
 #### --version
 
 ```bash
-# package.version
-tr override --version="../package.json"
+# tauri.conf.json > package.version
+tr override --version="1.0.0"
 ```
 
 #### --json.a_b_c
