@@ -6,6 +6,7 @@ import release from './release';
 import updater from './updater';
 import override from './override';
 import create from './create';
+import download from './download';
 import { $argv, require } from './utils';
 
 // https://github.com/nodejs/help/issues/2907#issuecomment-757446568
@@ -36,6 +37,8 @@ function init() {
         // usage: tr new [log|action]
       case 'new':
         create(); break;
+      case 'download':
+        download(); break;
       default:
         cliHelp();
     }
@@ -59,6 +62,7 @@ options:
    ${c.gray('log [--logfile]         UPDATE_LOG.md (default)')}
    ${c.gray('action [--actionfile]   .github/workflows/release.yml (default)')}
   ${c.green('release')}                  tauri release
+  ${c.green('download')}                 edit version number
   ${c.green('updater')}                  generate tauri update file
   ${c.green('-h, --help')}               print node command line options
 `);

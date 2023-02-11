@@ -85,7 +85,18 @@ export default async function updater() {
       sig = await getSignature(asset.browser_download_url);
     }
     platforms.forEach((platform: Platform) => {
-      if (reg.test(asset.name)) {
+      // mac aarch64
+      if (/aarch64/.test(asset.name)) {
+        if (/.app.tar.gz/.test(asset.name)) {
+          if (sig) {
+            updateData.platforms['darwin-aarch64'].signature = sig;
+            return;
+          }
+          // platform url
+          updateData.platforms['darwin-aarch64'].url = asset.browser_download_url;
+          return;
+        }
+      } else if (reg.test(asset.name)) {
         // platform signature
         if (sig) {
           updateData.platforms[platform].signature = sig;
