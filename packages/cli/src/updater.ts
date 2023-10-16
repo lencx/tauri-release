@@ -11,7 +11,8 @@ import updatelog from './updatelog';
 
 export default async function updater() {
   const argv = $argv();
-  let owner, repo;
+  let owner: string | undefined = undefined;
+  let repo: string | undefined = undefined;
 
   try {
     owner = context?.repo?.owner;
@@ -25,7 +26,7 @@ export default async function updater() {
     }
   }
 
-  if (!owner || !owner || !argv.token) {
+  if (!owner || !repo || !argv.token) {
     console.log(c.red('[💢 updater]'), '`owner`, `repo`, `token` are required.');
     process.exit(0);
   }
@@ -82,7 +83,7 @@ export default async function updater() {
   const setAsset = async (asset: any, reg: RegExp, platforms: Platform[]) => {
     let sig = '';
     if (/.sig$/.test(asset.name)) {
-      sig = await getSignature(asset.browser_download_url);
+      sig = await getSignature({ assetId: asset.id, ...options, token: argv.token });
     }
     platforms.forEach((platform: Platform) => {
       // mac aarch64
@@ -135,14 +136,30 @@ export default async function updater() {
 }
 
 // get the signature file content
-async function getSignature(url: string): Promise<any> {
+async function getSignature({
+  assetId,
+  owner,
+  repo,
+  token,
+}: {
+  assetId: string
+  owner: string
+  repo: string
+  token: string
+}): Promise<string> {
   try {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/octet-stream' },
-    });
-    return response.text();
+    const response = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/releases/assets/${assetId}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/octet-stream',
+          Authorization: `token ${token}`,
+        },
+      },
+    )
+    return response.text()
   } catch (_) {
-    return '';
+    return ''
   }
 }
